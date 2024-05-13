@@ -49,7 +49,7 @@ namespace Pri.Vue.Store.Api.Controllers
 
             if (result.IsSuccess == false)
             {
-                return BadRequest(result.Messages);
+                return Unauthorized(result.Messages);
             }
 
             return Ok(new TokenDto { BearerToken = result.Token });

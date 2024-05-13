@@ -32,20 +32,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <div id="loginForm" class="d-flex flex-column">
-                        <form class="d-flex" role="login" >
-                            <input class="form-control me-2" type="email" placeholder="e-mail" aria-label="E-mail">
-                            <input class="form-control me-2" type="password" placeholder="password" aria-label="Password">
+                    <div v-if="!isLoggedIn" id="loginForm" class="d-flex flex-column">
+                        <form v-on:submit.prevent="submitLogin" class="d-flex" role="login" >
+                            <input v-model="email" class="form-control me-2" type="email" placeholder="e-mail" aria-label="E-mail">
+                            <input v-model="password" class="form-control me-2" type="password" placeholder="password" aria-label="Password">
                             <button class="btn btn-outline-primary" type="submit">Login</button>
                         </form>
-                        <div class="d-inline-flex">
+                        <div v-if="isLoggedIn" class="d-inline-flex">
                             <div class="me-2">
                                 <p class="d-inline">Welkom e-mailadres hier!</p>
                                 <img class="d-inline-block rounded-circle ms-2" width="50" height="50" src="#"/>
                             </div>
                             <button class="btn btn-danger align-self-center" type="submit" >Logout</button>
                         </div>
-                        <div class="alert alert-danger p-2 my-2" >Foutboodschappen hier</div>
+                        <div v-if="isError" class="alert alert-danger p-2 my-2" >Foutboodschappen hier</div>
                     </div>
                 </div>
             </div>
