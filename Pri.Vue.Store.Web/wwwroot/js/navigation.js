@@ -11,14 +11,15 @@ var navbarVue = new Vue({
         errorMessage: "",
     },
     created: function () {
-
+        //check if logged in
+        this.isLoggedIn = sessionStorage.getItem("loggedIn");
     },
     methods: {
         submitLogin: async function () {
             //get the input data
             //validate input data
             //generate json object
-
+            this.isError = false;
             const loginDto = {
                 email: this.email,
                 password: this.password
@@ -28,9 +29,13 @@ var navbarVue = new Vue({
             await axios.post(url, loginDto)
                 .then(response => {
                     console.log(response.data.bearerToken);
+                    this.isLoggedIn = true;
+                    sessionStorage.setItem("loggedIn", true);
                 })
                 .catch(error => {
                     console.log(error);
+                    this.isError = true;
+                    this.errorMessage = error.response.data[0];
                 });
                 //if error => showError
             //store the token
