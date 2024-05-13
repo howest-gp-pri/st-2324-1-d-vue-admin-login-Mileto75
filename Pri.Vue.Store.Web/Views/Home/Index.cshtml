@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Bull.com";
+}
+
+<div id="app">
+    <div class="row">
+        <div class="btn-group mb-5" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-primary" v-on:click="showCategories">Categorieën</button>
+            <button type="button" class="btn btn-outline-primary" v-on:click="showProducts">Producten</button>
+        </div>
+    </div>
+    <div class="row" v-if="showErrorSection">
+        <div class="alert alert-danger">
+            {{errorMessage}}
+        </div>
+    </div>
+    <div v-else>
+        <div class="" v-if="isLoading">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div v-else>
+            <div v-if="showCategoriesSection">
+                <div class="row">
+                    <input type="text" v-model="categorySearch" class="form-control mb-5" placeholder="Zoek categorieën..." v-on:input="searchCategory" />
+                </div>
+                <div class="row">
+                    <div class="card col-md-3 p-2 m-1" v-for="category in categories">
+                        <img class="card-img-top" v-bind:src="category.imageUrl" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{category.name}}</h5>
+                            <a href="#" class="btn btn-primary" v-on:click="showProductsFromCategory(category.id)">Toon producten</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="showProductsSection">
+                <div class="row">
+                    <input type="text" v-model="productSearch" class="form-control mb-5" placeholder="Zoek producten..." v-on:input="searchProduct" />
+                </div>
+                <div class="row">
+                    <div class="card col-md-3 p-2 m-1" v-for="product in products">
+                        <img class="card-img-top" v-bind:src="product.imageUrl" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.name}}</h5>
+
+                            <div class="btn-group mb-5" role="group" aria-label="Basic example">
+                                <a href="#" class="btn btn-primary" v-on:click="showProductDetails(product)">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="showProductDetailSection">
+                <div class="row">
+                    <div class="col-md-3 card">
+                        <img class="card-img" v-bind:src="productDetail.imageUrl" alt="" />
+                        <p>Categorie: <a href="#" v-on:click="showProductsFromCategory(productDetail.categoryId)">{{productDetail.categoryName}}</a></p>
+                        <p>Prijs: &euro; {{productDetail.price}}</p>
+                        <p v-if="productDetail.pegiRating">Rating: minstens {{productDetail.pegiRating}} jaar</p>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{productDetail.name}}</h5>
+                                <p class="mb-1" v-html="productDetail.description"></p>
+                                <a href="#" class="btn btn-secondary" v-on:click="showProducts">Terug</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/products.js">
+        
+    </script>
+}
