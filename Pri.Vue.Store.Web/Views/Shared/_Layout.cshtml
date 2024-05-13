@@ -22,10 +22,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li>
+                        <li v-if="isAdmin">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Categories">Beheer categorieën</a>
                         </li>
-                        <li>
+                        <li v-if="isAdmin">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Beheer producten</a>
                         </li>
                         <li class="nav-item">
@@ -41,10 +41,10 @@
                     </div>
                     <div v-if="isLoggedIn" class="d-inline-flex">
                         <div class="me-2">
-                            <p class="d-inline">Welkom e-mailadres hier!</p>
-                            <img class="d-inline-block rounded-circle ms-2" width="50" height="50" src="#" />
+                            <p class="d-inline">{{emailAddress}}</p>
+                            <img class="d-inline-block rounded-circle ms-2" width="50" height="50" v-bind:src="profileImage" />
                         </div>
-                        <button class="btn btn-danger align-self-center" type="submit">Logout</button>
+                        <button v-on:click="submitLogout" class="btn btn-danger align-self-center" type="button">Logout</button>
                     </div>
                     <div v-if="isError" class="alert alert-danger p-2 my-2">{{errorMessage}}</div>
                 </div>
