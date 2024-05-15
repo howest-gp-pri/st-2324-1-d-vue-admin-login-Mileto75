@@ -37,6 +37,7 @@
                             <input v-model="email" class="form-control me-2" type="email" placeholder="e-mail" aria-label="E-mail">
                             <input v-model="password" class="form-control me-2" type="password" placeholder="password" aria-label="Password">
                             <button class="btn btn-outline-primary" type="submit">Login</button>
+                            <button v-on:click="submitLogout" class="btn btn-outline-secondary align-self-center m-1" type="button">Register</button>
                         </form>
                     </div>
                     <div v-if="isLoggedIn" class="d-inline-flex">
@@ -45,10 +46,32 @@
                             <img class="d-inline-block rounded-circle ms-2" width="50" height="50" v-bind:src="profileImage" />
                         </div>
                         <button v-on:click="submitLogout" class="btn btn-danger align-self-center" type="button">Logout</button>
+                        
+
                     </div>
                     <div v-if="isError" class="alert alert-danger p-2 my-2">{{errorMessage}}</div>
                 </div>
             </div>
+            @* registration modal *@
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal-label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModalTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!--Modal content-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </nav>
     </header>
     <div class="container">
